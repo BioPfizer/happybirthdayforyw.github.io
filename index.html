@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday</title>
+    <title>Happy Birthday Yee Wen</title>
     <style>
+       
         :root {
-            --primary: #d0c0e8; /* Lighter lavender */
-            --secondary: #f2ecfd; /* Very light lavender */
-            --accent: #b3a0d9; /* Soft medium purple */
-            --text: #5d5d5d;
+            --primary: #e2d1f9; /* Even lighter lavender with pink tone */
+            --secondary: #fcf2ff; /* Very light pink-lavender */
+            --accent: #d6b8ff; /* Soft lilac */
+            --pink: #ffd1f5; /* Soft pink */
+            --text: #6e6e6e;
             --white: #ffffff;
+            --dark: #333333;
         }
 
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
@@ -23,7 +26,7 @@
 
         body {
             font-family: 'Poppins', 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--pink) 50%, var(--primary) 100%);
             color: var(--text);
             min-height: 100vh;
             overflow-x: hidden;
@@ -33,6 +36,19 @@
             background-attachment: fixed;
             position: relative;
         }
+        
+        /* Instagram-style filter overlay */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, transparent 50%, rgba(255,209,245,0.08) 100%);
+            pointer-events: none;
+            z-index: 2;
+        }
 
         body::before {
             content: '';
@@ -41,13 +57,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="%23d0c0e8" opacity="0.3"/></svg>');
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="%23d6b8ff" opacity="0.3"/></svg>');
             opacity: 0.5;
             z-index: -1;
         }
 
         .container {
-            max-width: 1200px;
+            width: 100%;
+            max-width: 500px; /* Better size for mobile */
             margin: 0 auto;
             padding: 1rem;
             text-align: center;
@@ -56,20 +73,44 @@
         header {
             background-color: var(--white);
             padding: 1.5rem 0;
-            box-shadow: 0 4px 20px rgba(138, 107, 191, 0.15);
+            box-shadow: 0 4px 20px rgba(214, 184, 255, 0.15);
             position: relative;
             overflow: hidden;
-            border-bottom: 3px solid var(--primary);
+            border-bottom: 3px solid var(--pink);
+        }
+        
+        /* Instagram-style decorative elements */
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(to right, var(--pink), var(--accent), var(--primary));
+            opacity: 0.7;
         }
 
         header h1 {
             color: var(--accent);
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             position: relative;
             z-index: 2;
             font-weight: 600;
             letter-spacing: 1px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Instagram-style text effect */
+        header h1::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            width: 30%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--accent), transparent);
+            transform: translateX(-50%);
         }
 
         .star {
@@ -79,7 +120,7 @@
             background-color: var(--accent);
             opacity: 0.7;
             border-radius: 50%;
-            box-shadow: 0 0 4px 2px rgba(179, 160, 217, 0.3);
+            box-shadow: 0 0 4px 2px rgba(214, 184, 255, 0.3);
             animation: twinkle 4s ease-in-out infinite;
             z-index: 1;
         }
@@ -105,93 +146,177 @@
         }
 
         .countdown-container {
-            margin-bottom: 2rem;
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(138, 107, 191, 0.15);
-            width: 85%;
-            max-width: 800px;
+            margin-bottom: 2.5rem;
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 2rem 1.5rem 3rem 1.5rem; /* Extra padding bottom */
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(214, 184, 255, 0.2);
+            width: 100%;
+            max-width: 500px; /* Better for mobile */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .countdown-container::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--pink), var(--accent), var(--pink));
         }
 
         .countdown-title {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             color: var(--accent);
             margin-bottom: 1.5rem;
+            font-weight: 600;
         }
 
         .countdown {
             display: flex;
             justify-content: center;
-            gap: 2rem;
+            gap: 1.5rem;
         }
 
         .countdown-item {
             display: flex;
             flex-direction: column;
             align-items: center;
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 0.8rem 0.8rem;
+            box-shadow: 0 4px 15px rgba(214, 184, 255, 0.15);
+            width: 70px; /* Fixed width for consistency */
+            border: 1px solid rgba(214, 184, 255, 0.3);
         }
 
         .countdown-value {
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: 600;
             color: var(--accent);
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            line-height: 1.2;
         }
 
         .countdown-label {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 1px;
             color: var(--text);
+            margin-top: 0.3rem;
         }
 
         .video-container {
-            width: 85%;
-            max-width: 800px;
-            margin: 0 auto;
+            width: 100%;
+            max-width: 500px; /* Better for mobile */
+            margin: 0 auto 2rem auto;
             background-color: var(--white);
-            border-radius: 15px;
-            padding: 1.5rem;
-            box-shadow: 0 10px 30px rgba(138, 107, 191, 0.15);
+            border-radius: 20px;
+            padding: 1.5rem 1.5rem 3rem 1.5rem; /* Increased bottom padding */
+            box-shadow: 0 10px 30px rgba(214, 184, 255, 0.2);
             position: relative;
             overflow: hidden;
             display: none; /* Hidden by default, shown after countdown */
+            position: relative;
         }
-
+        
+        /* Instagram-style polaroid frame */
         .video-container::before {
             content: '';
             position: absolute;
-            top: 0;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 22px;
+            background: linear-gradient(45deg, var(--pink), var(--accent), var(--pink), var(--accent));
+            background-size: 400% 400%;
+            z-index: -1;
+            animation: gradientBorder 6s ease infinite;
+        }
+        
+        @keyframes gradientBorder {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .video-container::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
             left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(90deg, var(--primary), var(--accent), var(--primary));
-            z-index: 2;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--pink), var(--accent), var(--pink));
         }
 
         .video-content {
             width: 100%;
-            border-radius: 8px;
+            border-radius: 12px;
             overflow: hidden;
+            box-shadow: 0 5px 15px rgba(214, 184, 255, 0.15);
+            min-height: 450px; /* Increased height for video container */
+            position: relative;
+        }
+        
+        /* Instagram-style filter overlay for video */
+        .video-content::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(214,184,255,0.03) 100%);
+            pointer-events: none;
+            z-index: 2;
         }
 
         video {
             width: 100%;
             height: auto;
+            min-height: 450px; /* Increased height */
             display: block;
+            background-color: #000;
+            object-fit: cover; /* Cover the area without distortion */
+            border-radius: 10px;
+            transform: scale(0.985); /* Slight inset for Instagram look */
         }
 
         .message {
-            margin: 2rem auto;
-            max-width: 600px;
-            line-height: 1.6;
+            margin: 0 auto 2.5rem auto;
+            max-width: 500px; /* Better for mobile */
+            line-height: 1.5;
             color: var(--accent);
-            font-size: 1.1rem;
-            background-color: rgba(255, 255, 255, 0.7);
-            padding: 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(138, 107, 191, 0.1);
+            font-size: 1rem; /* Smaller text */
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 1.2rem; /* Less padding */
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(214, 184, 255, 0.15);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px); /* Instagram-style glass effect */
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .message::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--pink), var(--accent), var(--pink));
         }
 
         .sparkle {
@@ -226,8 +351,16 @@
             color: var(--accent);
             text-align: center;
             position: relative;
-            box-shadow: 0 -4px 20px rgba(138, 107, 191, 0.15);
-            border-top: 3px solid var(--primary);
+            box-shadow: 0 -4px 20px rgba(214, 184, 255, 0.15);
+            border-top: 3px solid var(--pink);
+            font-weight: 600;
+        }
+        
+        footer p {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .music-controls {
@@ -236,7 +369,7 @@
             right: 2rem;
             background-color: var(--white);
             color: var(--accent);
-            border: 2px solid var(--primary);
+            border: 2px solid var(--pink);
             width: 50px;
             height: 50px;
             border-radius: 50%;
@@ -244,23 +377,25 @@
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(138, 107, 191, 0.2);
+            box-shadow: 0 4px 12px rgba(214, 184, 255, 0.2);
             transition: all 0.3s ease;
             z-index: 10;
+            font-size: 1.5rem;
         }
 
         .music-controls:hover {
-            background-color: var(--primary);
+            background-color: var(--pink);
             color: var(--white);
         }
 
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 2rem;
-            }
-            
-            .countdown {
-                gap: 1rem;
+        .auto-play-music {
+            display: none; /* Hidden audio element */
+        }
+
+        @media (max-width: 500px) {
+            .countdown-item {
+                width: 60px;
+                padding: 0.6rem 0.4rem;
             }
             
             .countdown-value {
@@ -271,22 +406,44 @@
                 font-size: 0.7rem;
             }
             
-            .video-container, .countdown-container {
-                width: 95%;
-                padding: 1rem;
+            header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .countdown-title {
+                font-size: 1.4rem;
             }
             
             .message {
-                font-size: 1rem;
+                font-size: 0.9rem;
                 padding: 1rem;
             }
+
+            .video-content, video {
+                min-height: 380px; /* Still substantial height on mobile */
+            }
         }
+        
+        /* Instagram-style photo filters */
+        .insta-filter {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            mix-blend-mode: overlay;
+            background: linear-gradient(45deg, rgba(255,209,245,0.1), rgba(214,184,255,0.1));
+            z-index: 100;
+        }
+    
     </style>
 </head>
 <body>
+    <div class="insta-filter"></div>
     <header>
         <div class="container">
-            <h1>Happy Birthday!</h1>
+            <h1>Happy Birthday Yee Wen!!</h1>
         </div>
         <!-- Star elements will be added by JavaScript -->
     </header>
@@ -319,24 +476,25 @@
                 <div class="video-content">
                     <video id="birthday-video" controls>
                         <!-- Replace with your actual video path -->
-                        <source src="birthday_video.mp4" type="video/mp4">
+                        <source src="White Birthday Mobile Video.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
             </div>
             
             <div class="message">
-                <p>Sending you dreamy wishes for an amazing birthday filled with joy and wonder!</p>
+                <p>Sending you dreamy wishes for an amazing birthday! May your day be filled with joy! <span style="font-size: 1.2rem;">🖤</span></p>
             </div>
         </div>
     </main>
 
     <footer>
         <div class="container">
-            <p>Happy Birthday! ✨</p>
+            <p>Wish You All The Best! Sincerely <span style="font-size: 1.3rem;">✨🖤</span></p>
         </div>
     </footer>
 
+    <!-- Music controls button -->
     <button class="music-controls" id="music-toggle">
         ♫
     </button>
@@ -353,7 +511,7 @@
             const header = document.querySelector('header');
             
             // Add stars to header
-            for (let i = 0; i < 30; i++) {
+            for (let i = 0; i < 40; i++) {
                 const star = document.createElement('div');
                 star.classList.add('star');
                 star.style.left = `${Math.random() * 100}%`;
@@ -363,7 +521,7 @@
             }
             
             // Add sparkles to body
-            for (let i = 0; i < 40; i++) {
+            for (let i = 0; i < 50; i++) {
                 const sparkle = document.createElement('div');
                 sparkle.classList.add('sparkle');
                 sparkle.style.left = `${Math.random() * 100}%`;
@@ -371,18 +529,6 @@
                 sparkle.style.animationDelay = `${Math.random() * 5}s`;
                 body.appendChild(sparkle);
             }
-        }
-
-        // Get random pastel colors
-        function getRandomColor() {
-            const colors = [
-                '#d0c0e8', // Light lavender
-                '#c0d0e8', // Light blue
-                '#e8d0e0', // Light pink
-                '#d0e8e0', // Light mint
-                '#e0e8d0'  // Light yellow
-            ];
-            return colors[Math.floor(Math.random() * colors.length)];
         }
 
         // Handle music toggle
@@ -405,8 +551,6 @@
         });
 
         // Countdown timer logic
-        // For demonstration, we'll use a countdown of 30 seconds from page load
-        // In real use, you'd set a specific date/time
         function startCountdown() {
             const countdownContainer = document.getElementById('countdown-container');
             const videoContainer = document.getElementById('video-container');
@@ -417,12 +561,12 @@
             const minutesElement = document.getElementById('minutes');
             const secondsElement = document.getElementById('seconds');
             
-            // For demo purposes, set countdown to 30 seconds from now
-            // In real use, you'd use a specific date:
+            // For demo purposes, set countdown to 10 seconds from now
+            // In real use, you'd set a specific date:
             // const targetDate = new Date('2025-05-25T00:00:00');
             
             const targetDate = new Date();
-            targetDate.setSeconds(targetDate.getSeconds() + 30); // 30 second countdown
+            targetDate.setSeconds(targetDate.getSeconds() + 10); // 10 second countdown for faster testing
             
             const updateCountdown = () => {
                 const currentDate = new Date();
@@ -432,10 +576,27 @@
                     // Countdown finished
                     countdownContainer.style.display = 'none';
                     videoContainer.style.display = 'block';
+                    
+                    // Try to autoplay the video
                     birthdayVideo.play().catch(e => {
                         console.log('Video play failed:', e);
-                        alert('Video playback requires user interaction. Click the video to play.');
+                        // Instead of alert, just show a message on the page
+                        const messageDiv = document.createElement('div');
+                        messageDiv.style.textAlign = 'center';
+                        messageDiv.style.marginBottom = '10px';
+                        messageDiv.style.color = 'var(--accent)';
+                        videoContainer.insertBefore(messageDiv, videoContainer.firstChild);
                     });
+                    
+                    // Try to play music automatically too
+                    if (!isMusicPlaying) {
+                        backgroundMusic.play().catch(e => {
+                            console.log('Auto music play failed:', e);
+                        });
+                        isMusicPlaying = true;
+                        musicToggle.innerHTML = '◼';
+                    }
+                    
                     clearInterval(interval);
                     return;
                 }
