@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday</title>
+    <style>
+        :root {
+            --primary: #b19cd9; /* Light purple main color */
+            --secondary: #e6e0f8; /* Lighter purple */
+            --accent: #8a6bbf; /* Slightly darker purple */
+            --text: #4a4a4a;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', 'Segoe UI', sans-serif;
+            background-color: var(--secondary);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        header {
+            background-color: var(--primary);
+            padding: 1rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header h1 {
+            color: var(--white);
+            font-size: 2.5rem;
+            position: relative;
+            z-index: 2;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: var(--accent);
+            opacity: 0.7;
+            border-radius: 50%;
+            animation: fall 5s ease-in infinite;
+            z-index: 1;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 0;
+        }
+
+        .video-container {
+            width: 85%;
+            max-width: 800px;
+            margin: 2rem auto;
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(138, 107, 191, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--primary));
+            z-index: 2;
+        }
+
+        .video-placeholder {
+            width: 100%;
+            background-color: var(--secondary);
+            border-radius: 8px;
+            aspect-ratio: 16/9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--accent);
+            font-size: 1.2rem;
+            position: relative;
+        }
+
+        .message {
+            margin: 2rem auto;
+            max-width: 600px;
+            line-height: 1.6;
+            color: var(--accent);
+            font-size: 1.1rem;
+        }
+
+        .hearts {
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0;
+            z-index: 1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        footer {
+            background-color: var(--primary);
+            padding: 1rem 0;
+            color: var(--white);
+            text-align: center;
+            position: relative;
+        }
+
+        .music-controls {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .music-controls:hover {
+            background-color: var(--accent);
+        }
+
+        .btn {
+            background-color: var(--accent);
+            color: var(--white);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 1rem 0;
+        }
+
+        .btn:hover {
+            background-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .video-container {
+                width: 95%;
+                padding: 1rem;
+            }
+            
+            .message {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Happy Birthday!</h1>
+        </div>
+        <!-- Confetti elements will be added by JavaScript -->
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="video-container">
+                <div class="video-placeholder" id="video-area">
+                    <p>Your birthday video will appear here</p>
+                    <button class="btn" id="upload-btn">Upload Video</button>
+                </div>
+            </div>
+            
+            <div class="message">
+                <p>Celebrate this special day with love and joy. This space is for your beautiful birthday wishes and message that will accompany your video.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Made with 💜</p>
+        </div>
+    </footer>
+
+    <button class="music-controls" id="music-toggle">
+        ♫
+    </button>
+
+    <audio id="background-music" loop>
+        <source src="https://cdnjs.cloudflare.com/ajax/libs/music-for-programming/1/happy_birthday_music.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        // Add confetti to the header
+        function createConfetti() {
+            const header = document.querySelector('header');
+            for (let i = 0; i < 20; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = `${Math.random() * 100}%`;
+                confetti.style.animationDelay = `${Math.random() * 5}s`;
+                confetti.style.backgroundColor = getRandomColor();
+                header.appendChild(confetti);
+            }
+        }
+
+        // Create floating hearts randomly
+        function createHearts() {
+            const main = document.querySelector('main');
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.classList.add('hearts');
+                heart.innerHTML = '💜';
+                heart.style.left = `${Math.random() * 100}%`;
+                heart.style.bottom = '0';
+                main.appendChild(heart);
+                
+                // Remove hearts after animation completes
+                setTimeout(() => {
+                    heart.remove();
+                }, 6000);
+            }, 2000);
+        }
+
+        // Get random pastel colors for confetti
+        function getRandomColor() {
+            const colors = [
+                '#b19cd9', // Light purple
+                '#d9b1c9', // Light pink
+                '#b1d9c9', // Light mint
+                '#c9b1d9', // Light lavender
+                '#d9c9b1'  // Light tan
+            ];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+
+        // Handle music toggle
+        const musicToggle = document.getElementById('music-toggle');
+        const backgroundMusic = document.getElementById('background-music');
+        let isMusicPlaying = false;
+
+        musicToggle.addEventListener('click', () => {
+            if (isMusicPlaying) {
+                backgroundMusic.pause();
+                musicToggle.innerHTML = '♫';
+            } else {
+                backgroundMusic.play().catch(e => {
+                    console.log('Audio play failed:', e);
+                    alert('Music playback requires user interaction. Click again to try playing music.');
+                });
+                musicToggle.innerHTML = '◼';
+            }
+            isMusicPlaying = !isMusicPlaying;
+        });
+
+        // Handle video upload functionality
+        const uploadBtn = document.getElementById('upload-btn');
+        const videoArea = document.getElementById('video-area');
+
+        uploadBtn.addEventListener('click', () => {
+            // This is a placeholder for the actual upload functionality
+            // In a real implementation, you would use an input field and FileReader
+            alert('In a real implementation, this would open a file dialog to upload your Canva video.');
+            
+            // For demonstration, show what it would look like with a video
+            videoArea.innerHTML = `
+                <p>Your video would appear here after uploading.</p>
+                <p>For now, this is just a placeholder.</p>
+                <button class="btn" id="upload-btn">Change Video</button>
+            `;
+        });
+
+        // Initialize animations when the page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            createConfetti();
+            createHearts();
+        });
+    </script>
+</body>
+</html>
