@@ -363,50 +363,6 @@
             gap: 0.5rem;
         }
 
-        .music-controls {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background-color: var(--white);
-            color: var(--accent);
-            border: 2px solid var(--beige);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(196, 184, 221, 0.2);
-            transition: all 0.3s ease;
-            z-index: 10;
-            font-size: 1.5rem;
-        }
-
-        .music-controls:hover {
-            background-color: var(--beige);
-            color: var(--accent);
-        }
-        
-        /* Initial music status indicator */
-        .music-status {
-            position: fixed;
-            bottom: 2rem;
-            right: 5rem;
-            background-color: var(--accent);
-            color: var(--white);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            z-index: 10;
-        }
-        
-        .music-status.active {
-            opacity: 1;
-        }
-
         @media (max-width: 500px) {
             .countdown-item {
                 width: 60px;
@@ -489,7 +445,7 @@
             
             <div class="video-container" id="video-container">
                 <div class="video-content">
-                    <video id="birthday-video" controls onplay="handleVideoPlay()">
+                    <video id="birthday-video" controls>
                         <!-- Replace this with the actual path to your video file -->
                         <source src="vid.mp4" type="video/mp4">
                         Your browser does not support the video tag.
@@ -508,20 +464,6 @@
             <p>Wish You All The Best! Sincerely <span style="font-size: 1.3rem;">✨</span></p>
         </div>
     </footer>
-    
-    <!-- Status indicator for music -->
-    <div class="music-status" id="music-status">Click to unmute</div>
-
-    <!-- Music controls button -->
-    <button class="music-controls" id="music-toggle">
-        ♫
-    </button>
-
-    <!-- Added muted attribute and preload for autoplay -->
-    <audio id="background-music" loop muted preload="auto">
-        <source src="music.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
 
     <script>
         // Detect if we're on a mobile device
@@ -552,126 +494,6 @@
                 body.appendChild(sparkle);
             }
         }
-
-        // Handle music toggle
-        const musicToggle = document.getElementById('music-toggle');
-        const backgroundMusic = document.getElementById('background-music');
-        const musicStatus = document.getElementById('music-status');
-        let isMusicPlaying = false;
-        let wasMusicPlayingBeforeVideo = false;
-
-        // Function to handle video play event
-        function handleVideoPlay() {
-            const birthdayVideo = document.getElementById('birthday-video');
-            
-            // If music was playing, store that state and pause music
-            if (isMusicPlaying && !backgroundMusic.paused) {
-                wasMusicPlayingBeforeVideo = true;
-                // We'll set the volume low instead of pausing to maintain the audio context
-                backgroundMusic.volume = 0.2;
-                
-                // Show status notification
-                musicStatus.textContent = "Music volume lowered";
-                musicStatus.classList.add('active');
-                setTimeout(() => {
-                    musicStatus.classList.remove('active');
-                }, 2000);
-            }
-            
-            // Add event listener for when video pauses or ends
-            birthdayVideo.addEventListener('pause', handleVideoPause);
-            birthdayVideo.addEventListener('ended', handleVideoPause);
-        }
-        
-        // Function to handle video pause/end event
-        function handleVideoPause() {
-            // If music was playing before video started, resume it
-            if (wasMusicPlayingBeforeVideo) {
-                backgroundMusic.volume = 1.0;
-                
-                // Show status notification
-                musicStatus.textContent = "Music volume restored";
-                musicStatus.classList.add('active');
-                setTimeout(() => {
-                    musicStatus.classList.remove('active');
-                }, 2000);
-            }
-        }
-
-        // Try to autoplay music (muted) when page loads
-        window.addEventListener('DOMContentLoaded', () => {
-            // Attempt to play muted music automatically
-            backgroundMusic.play().then(() => {
-                isMusicPlaying = true;
-                // Show notification to user that music is playing but muted
-                musicStatus.textContent = "Click to unmute music";
-                musicStatus.classList.add('active');
-                
-                // Hide status message after 4 seconds
-                setTimeout(() => {
-                    musicStatus.classList.remove('active');
-                }, 4000);
-                
-                musicToggle.innerHTML = '🔇'; // Muted symbol
-            }).catch(e => {
-                console.log('Auto music play failed:', e);
-                // Keep default state
-            });
-        });
-
-        musicToggle.addEventListener('click', () => {
-            if (isMusicPlaying) {
-                if (backgroundMusic.muted) {
-                    // If playing but muted, unmute
-                    backgroundMusic.muted = false;
-                    musicToggle.innerHTML = '🔊'; // Unmuted symbol
-                    
-                    // Show status
-                    musicStatus.textContent = "Music unmuted";
-                    musicStatus.classList.add('active');
-                    setTimeout(() => {
-                        musicStatus.classList.remove('active');
-                    }, 2000);
-                } else {
-                    // If playing and not muted, pause
-                    backgroundMusic.pause();
-                    isMusicPlaying = false;
-                    musicToggle.innerHTML = '♫';
-                    wasMusicPlayingBeforeVideo = false; // Reset the flag
-                    
-                    // Show status
-                    musicStatus.textContent = "Music stopped";
-                    musicStatus.classList.add('active');
-                    setTimeout(() => {
-                        musicStatus.classList.remove('active');
-                    }, 2000);
-                }
-            } else {
-                // If not playing, start playing unmuted
-                backgroundMusic.muted = false;
-                backgroundMusic.volume = 1.0;
-                backgroundMusic.currentTime = 0; // Restart from beginning for better experience
-                backgroundMusic.play().catch(e => {
-                    console.log('Audio play failed:', e);
-                    alert('Music playback requires user interaction. Click again to try playing music.');
-                });
-                isMusicPlaying = true;
-                musicToggle.innerHTML = '🔊';
-                
-                // Show status
-                musicStatus.textContent = "Music playing";
-                musicStatus.classList.add('active');
-                setTimeout(() => {
-                    musicStatus.classList.remove('active');
-                }, 2000);
-                
-                // On mobile, add a special handler for the video/music conflict
-                if (isMobile) {
-                    const birthdayVideo = document.getElementById('birthday-video');
-                    birthdayVideo.addEventListener('play', handleVideoPlay);
-                }
-            }
-        });
 
         // Countdown timer logic
         function startCountdown() {
