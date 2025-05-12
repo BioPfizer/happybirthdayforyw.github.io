@@ -6,12 +6,14 @@
     <title>Happy Birthday</title>
     <style>
         :root {
-            --primary: #b19cd9; /* Light purple main color */
-            --secondary: #e6e0f8; /* Lighter purple */
-            --accent: #8a6bbf; /* Slightly darker purple */
-            --text: #4a4a4a;
+            --primary: #d0c0e8; /* Lighter lavender */
+            --secondary: #f2ecfd; /* Very light lavender */
+            --accent: #b3a0d9; /* Soft medium purple */
+            --text: #5d5d5d;
             --white: #ffffff;
         }
+
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
         * {
             margin: 0;
@@ -20,14 +22,28 @@
         }
 
         body {
-            font-family: 'Montserrat', 'Segoe UI', sans-serif;
-            background-color: var(--secondary);
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
             color: var(--text);
             min-height: 100vh;
             overflow-x: hidden;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="%23d0c0e8" opacity="0.3"/></svg>');
+            opacity: 0.5;
+            z-index: -1;
         }
 
         .container {
@@ -38,43 +54,44 @@
         }
 
         header {
-            background-color: var(--primary);
-            padding: 1rem 0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background-color: var(--white);
+            padding: 1.5rem 0;
+            box-shadow: 0 4px 20px rgba(138, 107, 191, 0.15);
             position: relative;
             overflow: hidden;
+            border-bottom: 3px solid var(--primary);
         }
 
         header h1 {
-            color: var(--white);
+            color: var(--accent);
             font-size: 2.5rem;
             position: relative;
             z-index: 2;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.05);
         }
 
-        .confetti {
+        .star {
             position: absolute;
-            width: 10px;
-            height: 10px;
+            width: 2px;
+            height: 2px;
             background-color: var(--accent);
             opacity: 0.7;
             border-radius: 50%;
-            animation: fall 5s ease-in infinite;
+            box-shadow: 0 0 4px 2px rgba(179, 160, 217, 0.3);
+            animation: twinkle 4s ease-in-out infinite;
             z-index: 1;
         }
 
-        @keyframes fall {
-            0% {
-                transform: translateY(-100px) rotate(0deg);
-                opacity: 0;
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.2;
+                transform: scale(1);
             }
-            10% {
+            50% {
                 opacity: 0.7;
-            }
-            100% {
-                transform: translateY(100vh) rotate(360deg);
-                opacity: 0;
+                transform: scale(1.5);
             }
         }
 
@@ -87,16 +104,59 @@
             padding: 2rem 0;
         }
 
+        .countdown-container {
+            margin-bottom: 2rem;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(138, 107, 191, 0.15);
+            width: 85%;
+            max-width: 800px;
+        }
+
+        .countdown-title {
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .countdown-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .countdown-value {
+            font-size: 3rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .countdown-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text);
+        }
+
         .video-container {
             width: 85%;
             max-width: 800px;
-            margin: 2rem auto;
+            margin: 0 auto;
             background-color: var(--white);
-            border-radius: 12px;
+            border-radius: 15px;
             padding: 1.5rem;
-            box-shadow: 0 10px 30px rgba(138, 107, 191, 0.2);
+            box-shadow: 0 10px 30px rgba(138, 107, 191, 0.15);
             position: relative;
             overflow: hidden;
+            display: none; /* Hidden by default, shown after countdown */
         }
 
         .video-container::before {
@@ -110,17 +170,16 @@
             z-index: 2;
         }
 
-        .video-placeholder {
+        .video-content {
             width: 100%;
-            background-color: var(--secondary);
             border-radius: 8px;
-            aspect-ratio: 16/9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: var(--accent);
-            font-size: 1.2rem;
-            position: relative;
+            overflow: hidden;
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+            display: block;
         }
 
         .message {
@@ -129,45 +188,55 @@
             line-height: 1.6;
             color: var(--accent);
             font-size: 1.1rem;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(138, 107, 191, 0.1);
         }
 
-        .hearts {
+        .sparkle {
             position: absolute;
-            font-size: 1.5rem;
+            width: 5px;
+            height: 5px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            filter: blur(1px);
             opacity: 0;
             z-index: 1;
-            animation: float 6s ease-in-out infinite;
+            animation: float 4s ease-in-out infinite;
         }
 
         @keyframes float {
             0% {
-                transform: translateY(0) rotate(0deg);
+                transform: translateY(0) translateX(0);
                 opacity: 0;
             }
             20% {
                 opacity: 0.8;
             }
             100% {
-                transform: translateY(-100px) rotate(360deg);
+                transform: translateY(-100px) translateX(20px);
                 opacity: 0;
             }
         }
 
         footer {
-            background-color: var(--primary);
+            background-color: var(--white);
             padding: 1rem 0;
-            color: var(--white);
+            color: var(--accent);
             text-align: center;
             position: relative;
+            box-shadow: 0 -4px 20px rgba(138, 107, 191, 0.15);
+            border-top: 3px solid var(--primary);
         }
 
         .music-controls {
             position: fixed;
             bottom: 2rem;
             right: 2rem;
-            background-color: var(--primary);
-            color: var(--white);
-            border: none;
+            background-color: var(--white);
+            color: var(--accent);
+            border: 2px solid var(--primary);
             width: 50px;
             height: 50px;
             border-radius: 50%;
@@ -175,32 +244,14 @@
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 4px 12px rgba(138, 107, 191, 0.2);
             transition: all 0.3s ease;
             z-index: 10;
         }
 
         .music-controls:hover {
-            background-color: var(--accent);
-        }
-
-        .btn {
-            background-color: var(--accent);
-            color: var(--white);
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 30px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin: 1rem 0;
-        }
-
-        .btn:hover {
             background-color: var(--primary);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            color: var(--white);
         }
 
         @media (max-width: 768px) {
@@ -208,14 +259,26 @@
                 font-size: 2rem;
             }
             
-            .video-container {
+            .countdown {
+                gap: 1rem;
+            }
+            
+            .countdown-value {
+                font-size: 2rem;
+            }
+            
+            .countdown-label {
+                font-size: 0.7rem;
+            }
+            
+            .video-container, .countdown-container {
                 width: 95%;
                 padding: 1rem;
             }
             
             .message {
                 font-size: 1rem;
-                padding: 0 1rem;
+                padding: 1rem;
             }
         }
     </style>
@@ -225,27 +288,52 @@
         <div class="container">
             <h1>Happy Birthday!</h1>
         </div>
-        <!-- Confetti elements will be added by JavaScript -->
+        <!-- Star elements will be added by JavaScript -->
     </header>
 
     <main>
         <div class="container">
-            <div class="video-container">
-                <div class="video-placeholder" id="video-area">
-                    <p>Your birthday video will appear here</p>
-                    <button class="btn" id="upload-btn">Upload Video</button>
+            <div class="countdown-container" id="countdown-container">
+                <h2 class="countdown-title">Celebration begins in...</h2>
+                <div class="countdown" id="countdown">
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="days">00</span>
+                        <span class="countdown-label">Days</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="hours">00</span>
+                        <span class="countdown-label">Hours</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="minutes">00</span>
+                        <span class="countdown-label">Minutes</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="seconds">00</span>
+                        <span class="countdown-label">Seconds</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="video-container" id="video-container">
+                <div class="video-content">
+                    <video id="birthday-video" controls>
+                        <!-- Replace with your actual video path -->
+                        <source src="birthday_video.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
             </div>
             
             <div class="message">
-                <p>Celebrate this special day with love and joy. This space is for your beautiful birthday wishes and message that will accompany your video.</p>
+                <p>Sending you dreamy wishes for an amazing birthday filled with joy and wonder!</p>
             </div>
         </div>
     </main>
 
     <footer>
         <div class="container">
-            <p>Made with 💜</p>
+            <p>Happy Birthday! ✨</p>
         </div>
     </footer>
 
@@ -259,45 +347,40 @@
     </audio>
 
     <script>
-        // Add confetti to the header
-        function createConfetti() {
+        // Add dreamy stars to the header
+        function createStars() {
+            const body = document.body;
             const header = document.querySelector('header');
-            for (let i = 0; i < 20; i++) {
-                const confetti = document.createElement('div');
-                confetti.classList.add('confetti');
-                confetti.style.left = `${Math.random() * 100}%`;
-                confetti.style.animationDelay = `${Math.random() * 5}s`;
-                confetti.style.backgroundColor = getRandomColor();
-                header.appendChild(confetti);
+            
+            // Add stars to header
+            for (let i = 0; i < 30; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 4}s`;
+                header.appendChild(star);
+            }
+            
+            // Add sparkles to body
+            for (let i = 0; i < 40; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.classList.add('sparkle');
+                sparkle.style.left = `${Math.random() * 100}%`;
+                sparkle.style.top = `${Math.random() * 100}%`;
+                sparkle.style.animationDelay = `${Math.random() * 5}s`;
+                body.appendChild(sparkle);
             }
         }
 
-        // Create floating hearts randomly
-        function createHearts() {
-            const main = document.querySelector('main');
-            setInterval(() => {
-                const heart = document.createElement('div');
-                heart.classList.add('hearts');
-                heart.innerHTML = '💜';
-                heart.style.left = `${Math.random() * 100}%`;
-                heart.style.bottom = '0';
-                main.appendChild(heart);
-                
-                // Remove hearts after animation completes
-                setTimeout(() => {
-                    heart.remove();
-                }, 6000);
-            }, 2000);
-        }
-
-        // Get random pastel colors for confetti
+        // Get random pastel colors
         function getRandomColor() {
             const colors = [
-                '#b19cd9', // Light purple
-                '#d9b1c9', // Light pink
-                '#b1d9c9', // Light mint
-                '#c9b1d9', // Light lavender
-                '#d9c9b1'  // Light tan
+                '#d0c0e8', // Light lavender
+                '#c0d0e8', // Light blue
+                '#e8d0e0', // Light pink
+                '#d0e8e0', // Light mint
+                '#e0e8d0'  // Light yellow
             ];
             return colors[Math.floor(Math.random() * colors.length)];
         }
@@ -321,27 +404,66 @@
             isMusicPlaying = !isMusicPlaying;
         });
 
-        // Handle video upload functionality
-        const uploadBtn = document.getElementById('upload-btn');
-        const videoArea = document.getElementById('video-area');
-
-        uploadBtn.addEventListener('click', () => {
-            // This is a placeholder for the actual upload functionality
-            // In a real implementation, you would use an input field and FileReader
-            alert('In a real implementation, this would open a file dialog to upload your Canva video.');
+        // Countdown timer logic
+        // For demonstration, we'll use a countdown of 30 seconds from page load
+        // In real use, you'd set a specific date/time
+        function startCountdown() {
+            const countdownContainer = document.getElementById('countdown-container');
+            const videoContainer = document.getElementById('video-container');
+            const birthdayVideo = document.getElementById('birthday-video');
             
-            // For demonstration, show what it would look like with a video
-            videoArea.innerHTML = `
-                <p>Your video would appear here after uploading.</p>
-                <p>For now, this is just a placeholder.</p>
-                <button class="btn" id="upload-btn">Change Video</button>
-            `;
-        });
+            const daysElement = document.getElementById('days');
+            const hoursElement = document.getElementById('hours');
+            const minutesElement = document.getElementById('minutes');
+            const secondsElement = document.getElementById('seconds');
+            
+            // For demo purposes, set countdown to 30 seconds from now
+            // In real use, you'd use a specific date:
+            // const targetDate = new Date('2025-05-25T00:00:00');
+            
+            const targetDate = new Date();
+            targetDate.setSeconds(targetDate.getSeconds() + 30); // 30 second countdown
+            
+            const updateCountdown = () => {
+                const currentDate = new Date();
+                const difference = targetDate - currentDate;
+                
+                if (difference <= 0) {
+                    // Countdown finished
+                    countdownContainer.style.display = 'none';
+                    videoContainer.style.display = 'block';
+                    birthdayVideo.play().catch(e => {
+                        console.log('Video play failed:', e);
+                        alert('Video playback requires user interaction. Click the video to play.');
+                    });
+                    clearInterval(interval);
+                    return;
+                }
+                
+                // Calculate days, hours, minutes, seconds
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+                
+                // Update the countdown display
+                daysElement.textContent = days.toString().padStart(2, '0');
+                hoursElement.textContent = hours.toString().padStart(2, '0');
+                minutesElement.textContent = minutes.toString().padStart(2, '0');
+                secondsElement.textContent = seconds.toString().padStart(2, '0');
+            };
+            
+            // Initial update
+            updateCountdown();
+            
+            // Update countdown every second
+            const interval = setInterval(updateCountdown, 1000);
+        }
 
-        // Initialize animations when the page loads
+        // Initialize everything when the page loads
         window.addEventListener('DOMContentLoaded', () => {
-            createConfetti();
-            createHearts();
+            createStars();
+            startCountdown();
         });
     </script>
 </body>
