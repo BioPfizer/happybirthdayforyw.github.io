@@ -489,7 +489,7 @@
             
             <div class="video-container" id="video-container">
                 <div class="video-content">
-                    <video id="birthday-video" controls>
+                    <video id="birthday-video" controls onplay="handleVideoPlay()">
                         <!-- Replace this with the actual path to your video file -->
                         <source src="vid.mp4" type="video/mp4">
                         Your browser does not support the video tag.
@@ -524,6 +524,9 @@
     </audio>
 
     <script>
+        // Detect if we're on a mobile device
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        
         // Add dreamy stars to the header
         function createStars() {
             const body = document.body;
@@ -555,6 +558,45 @@
         const backgroundMusic = document.getElementById('background-music');
         const musicStatus = document.getElementById('music-status');
         let isMusicPlaying = false;
+        let wasMusicPlayingBeforeVideo = false;
+
+        // Function to handle video play event
+        function handleVideoPlay() {
+            const birthdayVideo = document.getElementById('birthday-video');
+            
+            // If music was playing, store that state and pause music
+            if (isMusicPlaying && !backgroundMusic.paused) {
+                wasMusicPlayingBeforeVideo = true;
+                // We'll set the volume low instead of pausing to maintain the audio context
+                backgroundMusic.volume = 0.2;
+                
+                // Show status notification
+                musicStatus.textContent = "Music volume lowered";
+                musicStatus.classList.add('active');
+                setTimeout(() => {
+                    musicStatus.classList.remove('active');
+                }, 2000);
+            }
+            
+            // Add event listener for when video pauses or ends
+            birthdayVideo.addEventListener('pause', handleVideoPause);
+            birthdayVideo.addEventListener('ended', handleVideoPause);
+        }
+        
+        // Function to handle video pause/end event
+        function handleVideoPause() {
+            // If music was playing before video started, resume it
+            if (wasMusicPlayingBeforeVideo) {
+                backgroundMusic.volume = 1.0;
+                
+                // Show status notification
+                musicStatus.textContent = "Music volume restored";
+                musicStatus.classList.add('active');
+                setTimeout(() => {
+                    musicStatus.classList.remove('active');
+                }, 2000);
+            }
+        }
 
         // Try to autoplay music (muted) when page loads
         window.addEventListener('DOMContentLoaded', () => {
@@ -595,6 +637,7 @@
                     backgroundMusic.pause();
                     isMusicPlaying = false;
                     musicToggle.innerHTML = '♫';
+                    wasMusicPlayingBeforeVideo = false; // Reset the flag
                     
                     // Show status
                     musicStatus.textContent = "Music stopped";
@@ -606,6 +649,8 @@
             } else {
                 // If not playing, start playing unmuted
                 backgroundMusic.muted = false;
+                backgroundMusic.volume = 1.0;
+                backgroundMusic.currentTime = 0; // Restart from beginning for better experience
                 backgroundMusic.play().catch(e => {
                     console.log('Audio play failed:', e);
                     alert('Music playback requires user interaction. Click again to try playing music.');
@@ -619,6 +664,12 @@
                 setTimeout(() => {
                     musicStatus.classList.remove('active');
                 }, 2000);
+                
+                // On mobile, add a special handler for the video/music conflict
+                if (isMobile) {
+                    const birthdayVideo = document.getElementById('birthday-video');
+                    birthdayVideo.addEventListener('play', handleVideoPlay);
+                }
             }
         });
 
@@ -661,9 +712,12 @@
                         videoContainer.insertBefore(messageDiv, videoContainer.firstChild);
                     });
                     
-                    // If the music is muted, ask the user to unmute
-                    if (isMusicPlaying && backgroundMusic.muted) {
-                        musicStatus.textContent = "Music is muted - click ♫ to hear";
+                    // Check if we're on a mobile device
+                    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+                    
+                    // If on mobile and music is playing, show a special notification
+                    if (isMobile && isMusicPlaying && !backgroundMusic.muted) {
+                        musicStatus.textContent = "If music stops, tap ♫ to resume";
                         musicStatus.classList.add('active');
                         setTimeout(() => {
                             musicStatus.classList.remove('active');
