@@ -7,11 +7,11 @@
     <style>
        
         :root {
-            --primary: #e2d1f9; /* Even lighter lavender with pink tone */
-            --secondary: #fcf2ff; /* Very light pink-lavender */
-            --accent: #d6b8ff; /* Soft lilac */
-            --pink: #ffd1f5; /* Soft pink */
-            --text: #6e6e6e;
+            --primary: #d8d0e8; /* Lighter lavender with beige undertones */
+            --secondary: #f9f7ff; /* Very light lavender-beige */
+            --accent: #c4b8dd; /* Soft lilac with less pink */
+            --beige: #f2efe6; /* Soft beige */
+            --text: #5e5e5e;
             --white: #ffffff;
             --dark: #333333;
         }
@@ -26,7 +26,7 @@
 
         body {
             font-family: 'Poppins', 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, var(--secondary) 0%, var(--pink) 50%, var(--primary) 100%);
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--beige) 50%, var(--primary) 100%);
             color: var(--text);
             min-height: 100vh;
             overflow-x: hidden;
@@ -45,7 +45,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at center, transparent 50%, rgba(255,209,245,0.08) 100%);
+            background: radial-gradient(circle at center, transparent 50%, rgba(212, 208, 232, 0.08) 100%);
             pointer-events: none;
             z-index: 2;
         }
@@ -57,7 +57,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="%23d6b8ff" opacity="0.3"/></svg>');
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="%23c4b8dd" opacity="0.3"/></svg>');
             opacity: 0.5;
             z-index: -1;
         }
@@ -73,10 +73,10 @@
         header {
             background-color: var(--white);
             padding: 1.5rem 0;
-            box-shadow: 0 4px 20px rgba(214, 184, 255, 0.15);
+            box-shadow: 0 4px 20px rgba(196, 184, 221, 0.15);
             position: relative;
             overflow: hidden;
-            border-bottom: 3px solid var(--pink);
+            border-bottom: 3px solid var(--beige);
         }
         
         /* Instagram-style decorative elements */
@@ -87,13 +87,13 @@
             left: 0;
             right: 0;
             height: 5px;
-            background: linear-gradient(to right, var(--pink), var(--accent), var(--primary));
+            background: linear-gradient(to right, var(--beige), var(--accent), var(--primary));
             opacity: 0.7;
         }
 
         header h1 {
             color: var(--accent);
-            font-size: 2.2rem;
+            font-size: 1.5rem;
             position: relative;
             z-index: 2;
             font-weight: 600;
@@ -120,7 +120,7 @@
             background-color: var(--accent);
             opacity: 0.7;
             border-radius: 50%;
-            box-shadow: 0 0 4px 2px rgba(214, 184, 255, 0.3);
+            box-shadow: 0 0 4px 2px rgba(196, 184, 221, 0.3);
             animation: twinkle 4s ease-in-out infinite;
             z-index: 1;
         }
@@ -150,7 +150,7 @@
             background-color: rgba(255, 255, 255, 0.85);
             padding: 2rem 1.5rem 3rem 1.5rem; /* Extra padding bottom */
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(214, 184, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(196, 184, 221, 0.2);
             width: 100%;
             max-width: 500px; /* Better for mobile */
             position: relative;
@@ -164,7 +164,7 @@
             left: 0;
             width: 100%;
             height: 6px;
-            background: linear-gradient(90deg, var(--pink), var(--accent), var(--pink));
+            background: linear-gradient(90deg, var(--beige), var(--accent), var(--beige));
         }
 
         .countdown-title {
@@ -187,9 +187,9 @@
             background-color: var(--white);
             border-radius: 12px;
             padding: 0.8rem 0.8rem;
-            box-shadow: 0 4px 15px rgba(214, 184, 255, 0.15);
+            box-shadow: 0 4px 15px rgba(196, 184, 221, 0.15);
             width: 70px; /* Fixed width for consistency */
-            border: 1px solid rgba(214, 184, 255, 0.3);
+            border: 1px solid rgba(196, 184, 221, 0.3);
         }
 
         .countdown-value {
@@ -215,7 +215,7 @@
             background-color: var(--white);
             border-radius: 20px;
             padding: 1.5rem 1.5rem 3rem 1.5rem; /* Increased bottom padding */
-            box-shadow: 0 10px 30px rgba(214, 184, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(196, 184, 221, 0.2);
             position: relative;
             overflow: hidden;
             display: none; /* Hidden by default, shown after countdown */
@@ -231,7 +231,7 @@
             right: -2px;
             bottom: -2px;
             border-radius: 22px;
-            background: linear-gradient(45deg, var(--pink), var(--accent), var(--pink), var(--accent));
+            background: linear-gradient(45deg, var(--beige), var(--accent), var(--primary), var(--beige));
             background-size: 400% 400%;
             z-index: -1;
             animation: gradientBorder 6s ease infinite;
@@ -256,14 +256,14 @@
             left: 0;
             width: 100%;
             height: 6px;
-            background: linear-gradient(90deg, var(--pink), var(--accent), var(--pink));
+            background: linear-gradient(90deg, var(--beige), var(--accent), var(--beige));
         }
 
         .video-content {
             width: 100%;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(214, 184, 255, 0.15);
+            box-shadow: 0 5px 15px rgba(196, 184, 221, 0.15);
             min-height: 450px; /* Increased height for video container */
             position: relative;
         }
@@ -276,7 +276,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(214,184,255,0.03) 100%);
+            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(196,184,221,0.03) 100%);
             pointer-events: none;
             z-index: 2;
         }
@@ -301,7 +301,7 @@
             background-color: rgba(255, 255, 255, 0.9);
             padding: 1.2rem; /* Less padding */
             border-radius: 20px;
-            box-shadow: 0 5px 15px rgba(214, 184, 255, 0.15);
+            box-shadow: 0 5px 15px rgba(196, 184, 221, 0.15);
             position: relative;
             overflow: hidden;
             backdrop-filter: blur(5px); /* Instagram-style glass effect */
@@ -316,7 +316,7 @@
             left: 0;
             width: 100%;
             height: 4px;
-            background: linear-gradient(90deg, var(--pink), var(--accent), var(--pink));
+            background: linear-gradient(90deg, var(--beige), var(--accent), var(--beige));
         }
 
         .sparkle {
@@ -351,8 +351,8 @@
             color: var(--accent);
             text-align: center;
             position: relative;
-            box-shadow: 0 -4px 20px rgba(214, 184, 255, 0.15);
-            border-top: 3px solid var(--pink);
+            box-shadow: 0 -4px 20px rgba(196, 184, 221, 0.15);
+            border-top: 3px solid var(--beige);
             font-weight: 600;
         }
         
@@ -369,7 +369,7 @@
             right: 2rem;
             background-color: var(--white);
             color: var(--accent);
-            border: 2px solid var(--pink);
+            border: 2px solid var(--beige);
             width: 50px;
             height: 50px;
             border-radius: 50%;
@@ -377,15 +377,15 @@
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(214, 184, 255, 0.2);
+            box-shadow: 0 4px 12px rgba(196, 184, 221, 0.2);
             transition: all 0.3s ease;
             z-index: 10;
             font-size: 1.5rem;
         }
 
         .music-controls:hover {
-            background-color: var(--pink);
-            color: var(--white);
+            background-color: var(--beige);
+            color: var(--accent);
         }
 
         .auto-play-music {
@@ -407,7 +407,7 @@
             }
             
             header h1 {
-                font-size: 1.8rem;
+                font-size: 1.5rem;
             }
             
             .countdown-title {
@@ -433,7 +433,7 @@
             height: 100%;
             pointer-events: none;
             mix-blend-mode: overlay;
-            background: linear-gradient(45deg, rgba(255,209,245,0.1), rgba(214,184,255,0.1));
+            background: linear-gradient(45deg, rgba(242,239,230,0.1), rgba(196,184,221,0.1));
             z-index: 100;
         }
     
@@ -475,22 +475,24 @@
             <div class="video-container" id="video-container">
                 <div class="video-content">
                     <video id="birthday-video" controls>
-                        <!-- Replace with your actual video path -->
-                        <source src="White Birthday Mobile Video2.mp4" type="video/mp4">
+                        <!-- Replace this with the actual path to your video file -->
+                        <source src="vid.mp4" type="video/mp4">
+                        <!-- For local files, you can use a full local path like: -->
+                        <!-- <source src="C:/Users/YourName/Videos/birthday_video.mp4" type="video/mp4"> -->
                         Your browser does not support the video tag.
                     </video>
                 </div>
             </div>
             
-            <div class="message">
-                <p>Sending you dreamy wishes for an amazing birthday! May your day be filled with joy! <span style="font-size: 1.2rem;">🖤</span></p>
+          <div class="message">
+                <p>Hope you're actually enjoying it and not just pretending it 😜 Wishing you real happiness today and every single day like, the kind that doesn't rely on alcohol or weekend plans!<span style="font-size: 1.2rem;">🖤</span></p>
             </div>
         </div>
     </main>
 
     <footer>
         <div class="container">
-            <p>Wish You All The Best! Sincerely <span style="font-size: 1.3rem;">✨🖤</span></p>
+            <p>Wish You All The Best! Sincerely <span style="font-size: 1.3rem;">✨</span></p>
         </div>
     </footer>
 
