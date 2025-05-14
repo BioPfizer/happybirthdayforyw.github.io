@@ -454,14 +454,14 @@
             </div>
             
             <div class="message">
-                <p>Hope you're actually enjoying it and not just pretending it 😜 Wishing you real happiness today and every single day like, the kind that doesn't rely on alcohol or weekend plans!<span style="font-size: 1.2rem;"> 🖤</span></p>
+                <p>Hope you're actually enjoying it and not just pretending it 😜 Wishing you real happiness today and every single day like, the kind that doesn't rely on alcohol or weekend plans!<span style="font-size: 1.2rem;">🖤</span></p>
             </div>
         </div>
     </main>
 
     <footer>
         <div class="container">
-            <p>Wish You All The Best! Sincerely <span style="font-size: 1.3rem;">✨</span></p>
+            <p>Wish You All The Best Sincerely <span style="font-size: 1.3rem;">✨</span></p>
         </div>
     </footer>
 
@@ -510,8 +510,8 @@
             // const targetDate = new Date('2025-05-25T00:00:00');
             
             // For testing, use a short countdown
-            const targetDate = new Date();
-            targetDate.setSeconds(targetDate.getSeconds() + 60); // 10 second countdown for faster testing
+            const targetDate = new Date('2025-05-15T00:00:00');
+            targetDate.setSeconds(targetDate.getSeconds() + 10); // 10 second countdown for faster testing
             
             const updateCountdown = () => {
                 const currentDate = new Date();
@@ -527,6 +527,7 @@
                         console.log('Video play failed:', e);
                         // Instead of alert, just show a message on the page
                         const messageDiv = document.createElement('div');
+                        messageDiv.textContent = 'Click the video to start playing';
                         messageDiv.style.textAlign = 'center';
                         messageDiv.style.marginBottom = '10px';
                         messageDiv.style.color = 'var(--accent)';
